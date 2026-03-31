@@ -1,0 +1,46 @@
+{
+  "name": "dexter-vscode",
+  "displayName": "Dexter",
+  "description": "Fast Elixir go-to-definition via the Dexter LSP server",
+  "version": "0.1.0",
+  "publisher": "remoteoss",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:remote-com/employ-starbase/dexter-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Programming Languages"],
+  "keywords": ["elixir", "lsp", "go-to-definition"],
+  "activationEvents": [
+    "onLanguage:elixir"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Dexter",
+      "properties": {
+        "dexter.binary": {
+          "type": "string",
+          "default": "dexter",
+          "description": "Path to the dexter binary. Defaults to 'dexter' (must be on PATH)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.0.0"
+  }
+}
