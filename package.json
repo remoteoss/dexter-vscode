@@ -2,7 +2,7 @@
   "name": "dexter-vscode",
   "displayName": "Dexter",
   "description": "Fast Elixir go-to-definition via the Dexter LSP server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "remoteoss",
   "license": "UNLICENSED",
   "repository": {
@@ -12,8 +12,14 @@
   "engines": {
     "vscode": "^1.75.0"
   },
-  "categories": ["Programming Languages"],
-  "keywords": ["elixir", "lsp", "go-to-definition"],
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "elixir",
+    "lsp",
+    "go-to-definition"
+  ],
   "activationEvents": [
     "onLanguage:elixir"
   ],
@@ -26,6 +32,11 @@
           "type": "string",
           "default": "dexter",
           "description": "Path to the dexter binary. Defaults to 'dexter' (must be on PATH)."
+        },
+        "dexter.followDelegates": {
+          "type": "boolean",
+          "default": true,
+          "description": "When jumping to a defdelegate, follow through to the target function definition."
         }
       }
     }
