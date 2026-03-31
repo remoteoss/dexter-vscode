@@ -1,12 +1,14 @@
-.PHONY: install build watch package install-vscode install-cursor clean
+.PHONY: install build watch package install-vscode install-cursor install clean
 
-install:
+install: install-cursor
+
+install-deps:
 	npm install
 
-build: install
+build: install-deps
 	npm run compile
 
-watch: install
+watch: install-deps
 	npm run watch
 
 package: build
