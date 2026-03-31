@@ -2,7 +2,7 @@
   "name": "dexter-vscode",
   "displayName": "Dexter",
   "description": "Fast Elixir go-to-definition via the Dexter LSP server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "remoteoss",
   "license": "UNLICENSED",
   "repository": {

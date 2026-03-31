@@ -10,6 +10,7 @@ let client: LanguageClient | undefined;
 export function activate(context: vscode.ExtensionContext) {
   const config = vscode.workspace.getConfiguration('dexter');
   const binary = config.get<string>('binary', 'dexter');
+  const followDelegates = config.get<boolean>('followDelegates', true);
 
   const serverOptions: ServerOptions = {
     command: binary,
@@ -23,6 +24,9 @@ export function activate(context: vscode.ExtensionContext) {
     ],
     synchronize: {
       fileEvents: vscode.workspace.createFileSystemWatcher('**/*.{ex,exs}'),
+    },
+    initializationOptions: {
+      followDelegates,
     },
   };
 
