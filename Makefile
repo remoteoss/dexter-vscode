@@ -24,12 +24,9 @@ install-cursor: package
 
 release:
 	@if [ -z "$(VERSION)" ]; then echo "Usage: make release VERSION=0.2.0"; exit 1; fi
-	@npm version $(VERSION) --no-git-tag-version
-	@git add package.json package-lock.json
-	@git commit -m "Release v$(VERSION)"
 	@git tag v$(VERSION)
-	@git push origin main v$(VERSION)
-	@echo "Released v$(VERSION)"
+	@git push origin v$(VERSION)
+	@echo "Tagged and pushed v$(VERSION)"
 
 clean:
 	rm -rf out/ node_modules/ *.vsix

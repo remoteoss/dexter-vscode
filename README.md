@@ -78,3 +78,14 @@ If dexter is not on your PATH, set the full path:
 The extension starts `dexter lsp` as a language server for Elixir files. Dexter handles `textDocument/definition` by querying a local SQLite index, resolving aliases, imports, and `defdelegate` chains. The index is kept up to date automatically on file save and on git branch switches.
 
 See the [Dexter repo](https://gitlab.com/remote-com/employ-starbase/dexter) for full documentation.
+
+## Releasing
+
+1. Create a release branch, bump the version in `package.json`, and update `CHANGELOG.md`
+2. Merge the branch into `main`
+3. Tag and push:
+   ```sh
+   make release VERSION=0.2.0
+   ```
+
+CI will pick up the tag and publish the extension automatically.
