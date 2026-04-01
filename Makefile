@@ -12,7 +12,7 @@ watch: install-deps
 	npm run watch
 
 package: build
-	npx vsce package
+	npx @vscode/vsce package
 
 VSIX := dexter-vscode-$(shell node -p "require('./package.json').version").vsix
 
