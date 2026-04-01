@@ -18,6 +18,7 @@ mise use -g dexter@latest
 # 3. Install this extension
 git clone git@gitlab.com:remote-com/employ-starbase/dexter-vscode.git
 cd dexter-vscode
+mise install
 make install   # installs to Cursor by default, or: make install-vscode
 ```
 
