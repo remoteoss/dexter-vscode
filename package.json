@@ -31,27 +31,53 @@
     "languages": [
       {
         "id": "elixir",
-        "aliases": ["Elixir", "elixir"],
-        "extensions": [".ex", ".exs"],
-        "filenames": ["mix.lock"],
+        "aliases": [
+          "Elixir",
+          "elixir"
+        ],
+        "extensions": [
+          ".ex",
+          ".exs"
+        ],
+        "filenames": [
+          "mix.lock"
+        ],
         "configuration": "./language-configuration.json"
       },
       {
         "id": "eex",
-        "aliases": ["Embedded Elixir", "EEx", "eex"],
-        "extensions": [".eex", ".leex"],
+        "aliases": [
+          "Embedded Elixir",
+          "EEx",
+          "eex"
+        ],
+        "extensions": [
+          ".eex",
+          ".leex"
+        ],
         "configuration": "./eex-language-configuration.json"
       },
       {
         "id": "phoenix-heex",
-        "aliases": ["Phoenix HEEx", "HEEx", "heex"],
-        "extensions": [".heex"],
+        "aliases": [
+          "Phoenix HEEx",
+          "HEEx",
+          "heex"
+        ],
+        "extensions": [
+          ".heex"
+        ],
         "configuration": "./eex-language-configuration.json"
       },
       {
         "id": "livebook",
-        "aliases": ["Livebook", "livebook"],
-        "extensions": [".livemd"],
+        "aliases": [
+          "Livebook",
+          "livebook"
+        ],
+        "extensions": [
+          ".livemd"
+        ],
         "configuration": "./livebook-language-configuration.json"
       }
     ],
@@ -124,6 +150,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.75.0",
+    "@vscode/vsce": "^3.7.1",
     "typescript": "^5.0.0"
   }
 }
