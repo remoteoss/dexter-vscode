@@ -21,10 +21,82 @@
     "go-to-definition"
   ],
   "activationEvents": [
-    "onLanguage:elixir"
+    "onLanguage:elixir",
+    "onLanguage:eex",
+    "onLanguage:phoenix-heex",
+    "onLanguage:livebook"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "elixir",
+        "aliases": ["Elixir", "elixir"],
+        "extensions": [".ex", ".exs"],
+        "filenames": ["mix.lock"],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "eex",
+        "aliases": ["Embedded Elixir", "EEx", "eex"],
+        "extensions": [".eex", ".leex"],
+        "configuration": "./eex-language-configuration.json"
+      },
+      {
+        "id": "phoenix-heex",
+        "aliases": ["Phoenix HEEx", "HEEx", "heex"],
+        "extensions": [".heex"],
+        "configuration": "./eex-language-configuration.json"
+      },
+      {
+        "id": "livebook",
+        "aliases": ["Livebook", "livebook"],
+        "extensions": [".livemd"],
+        "configuration": "./livebook-language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "elixir",
+        "scopeName": "source.elixir",
+        "path": "./syntaxes/elixir.json",
+        "unbalancedBracketScopes": [
+          "keyword.operator.bitwise.elixir",
+          "keyword.operator.other.unbalanced.elixir",
+          "constant.language.symbol.elixir",
+          "constant.language.symbol.single-quoted.elixir",
+          "constant.language.symbol.double-quoted.elixir",
+          "entity.name.function.call.dot.elixir"
+        ],
+        "embeddedLanguages": {
+          "comment.documentation.heredoc.elixir": "markdown"
+        }
+      },
+      {
+        "language": "eex",
+        "scopeName": "text.elixir",
+        "path": "./syntaxes/eex.json",
+        "embeddedLanguages": {
+          "meta.embedded.line.elixir": "elixir"
+        }
+      },
+      {
+        "language": "phoenix-heex",
+        "scopeName": "text.html.elixir",
+        "path": "./syntaxes/html-eex.json",
+        "embeddedLanguages": {
+          "meta.embedded.line.elixir": "elixir"
+        }
+      },
+      {
+        "language": "livebook",
+        "scopeName": "text.livebook",
+        "path": "./syntaxes/livebook.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.elixir": "elixir"
+        }
+      }
+    ],
     "configuration": {
       "title": "Dexter",
       "properties": {

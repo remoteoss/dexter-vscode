@@ -1,0 +1,92 @@
+{
+  "comment": "Grammar for Livebook (.livemd) files — Markdown with embedded Elixir code blocks.",
+  "name": "Livebook",
+  "scopeName": "text.livebook",
+  "fileTypes": ["livemd"],
+  "patterns": [
+    {
+      "comment": "Elixir fenced code block",
+      "begin": "^(`{3,})\\s*(elixir)\\s*$",
+      "end": "^(`{3,})\\s*$",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.fenced.markdown" },
+        "2": { "name": "entity.name.function.fenced.markdown" }
+      },
+      "endCaptures": {
+        "1": { "name": "punctuation.definition.fenced.markdown" }
+      },
+      "name": "markup.raw.block.markdown",
+      "contentName": "meta.embedded.block.elixir",
+      "patterns": [
+        { "include": "source.elixir" }
+      ]
+    },
+    {
+      "comment": "Headings",
+      "match": "^(#{1,6})\\s(.+)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.heading.markdown" },
+        "2": { "name": "entity.name.section.markdown" }
+      },
+      "name": "markup.heading.markdown"
+    },
+    {
+      "comment": "Inline code",
+      "match": "(`+)([^`]+)(\\1)",
+      "captures": {
+        "1": { "name": "punctuation.definition.raw.markdown" },
+        "2": { "name": "markup.inline.raw.string.markdown" },
+        "3": { "name": "punctuation.definition.raw.markdown" }
+      }
+    },
+    {
+      "comment": "Bold",
+      "match": "(\\*\\*|__)(?=\\S)(.+?)(?<=\\S)(\\1)",
+      "name": "markup.bold.markdown"
+    },
+    {
+      "comment": "Italic",
+      "match": "(\\*|_)(?=\\S)(.+?)(?<=\\S)(\\1)",
+      "name": "markup.italic.markdown"
+    },
+    {
+      "comment": "Link",
+      "match": "(\\[)([^\\]]+)(\\])(\\()([^)]+)(\\))",
+      "captures": {
+        "1": { "name": "punctuation.definition.link.begin.markdown" },
+        "2": { "name": "string.other.link.title.markdown" },
+        "3": { "name": "punctuation.definition.link.end.markdown" },
+        "4": { "name": "punctuation.definition.metadata.markdown" },
+        "5": { "name": "markup.underline.link.markdown" },
+        "6": { "name": "punctuation.definition.metadata.markdown" }
+      }
+    },
+    {
+      "comment": "Blockquote",
+      "match": "^\\s*(>)\\s",
+      "captures": {
+        "1": { "name": "punctuation.definition.quote.begin.markdown" }
+      },
+      "name": "markup.quote.markdown"
+    },
+    {
+      "comment": "Unordered list item",
+      "match": "^\\s*([*\\-+])\\s",
+      "captures": {
+        "1": { "name": "punctuation.definition.list.begin.markdown" }
+      }
+    },
+    {
+      "comment": "Ordered list item",
+      "match": "^\\s*(\\d+\\.)\\s",
+      "captures": {
+        "1": { "name": "punctuation.definition.list.begin.markdown" }
+      }
+    },
+    {
+      "comment": "Livebook section separator",
+      "match": "^<!--\\s*livebook:.*-->\\s*$",
+      "name": "comment.block.livebook"
+    }
+  ]
+}

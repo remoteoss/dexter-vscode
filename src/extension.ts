@@ -20,7 +20,9 @@ export function activate(context: vscode.ExtensionContext) {
   const clientOptions: LanguageClientOptions = {
     documentSelector: [
       { scheme: 'file', language: 'elixir' },
+      { scheme: 'file', language: 'eex' },
       { scheme: 'file', language: 'phoenix-heex' },
+      { scheme: 'file', language: 'livebook' },
     ],
     synchronize: {
       fileEvents: vscode.workspace.createFileSystemWatcher('**/*.{ex,exs}'),
