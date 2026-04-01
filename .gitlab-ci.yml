@@ -54,6 +54,8 @@ release:
   needs:
     - job: package
       artifacts: true
+  variables:
+    GITLAB_TOKEN: $GITLAB_TOKEN
   script:
     - echo "Creating release $CI_COMMIT_TAG"
   release:
