@@ -1,8 +1,8 @@
 {
   "name": "dexter-vscode",
   "displayName": "Dexter",
-  "description": "Fast Elixir go-to-definition via the Dexter LSP server",
-  "version": "0.2.0",
+  "description": "A lightning fast Elixir LSP server.",
+  "version": "0.2.1",
   "publisher": "remoteoss",
   "license": "UNLICENSED",
   "repository": {
@@ -123,6 +123,11 @@
         }
       }
     ],
+    "configurationDefaults": {
+      "[elixir]": {
+        "editor.formatOnSave": false
+      }
+    },
     "configuration": {
       "title": "Dexter",
       "properties": {
@@ -135,6 +140,16 @@
           "type": "boolean",
           "default": true,
           "description": "When jumping to a defdelegate, follow through to the target function definition."
+        },
+        "dexter.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable debug logging to stderr."
+        },
+        "dexter.stdlibPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the Elixir standard library (lib/ directory). Auto-detected if not set."
         }
       }
     }
