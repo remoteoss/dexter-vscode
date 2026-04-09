@@ -14,7 +14,7 @@ watch: install-deps
 package: build
 	npx @vscode/vsce package
 
-VSIX := dexter-vscode-$(shell node -p "require('./package.json').version").vsix
+VSIX := dexter-lsp-$(shell node -p "require('./package.json').version").vsix
 
 install-vscode: package
 	code --install-extension $(VSIX)

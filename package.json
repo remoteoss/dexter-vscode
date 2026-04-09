@@ -1,5 +1,5 @@
 {
-  "name": "dexter-vscode",
+  "name": "dexter-lsp",
   "displayName": "Dexter",
   "description": "A lightning fast Elixir LSP server.",
   "version": "0.2.1",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/remoteoss/dexter-vscode"
+    "url": "https://github.com/remoteoss/dexter-vscode.git"
   },
   "engines": {
     "vscode": "^1.75.0"
