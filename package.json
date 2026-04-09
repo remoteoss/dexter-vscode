@@ -4,21 +4,23 @@
   "description": "A lightning fast Elixir LSP server.",
   "version": "0.2.1",
   "publisher": "remoteoss",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:remote-com/employ-starbase/dexter-vscode.git"
+    "url": "https://github.com/remoteoss/dexter-vscode.git"
   },
   "engines": {
     "vscode": "^1.75.0"
   },
+	"icon": "dexter-logo.png",
   "categories": [
     "Programming Languages"
   ],
   "keywords": [
     "elixir",
     "lsp",
-    "go-to-definition"
+    "go-to-definition",
+    "syntax-highlighting"
   ],
   "activationEvents": [
     "onLanguage:elixir",
