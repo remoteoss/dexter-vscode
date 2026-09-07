@@ -5,6 +5,7 @@
 - Automatically download a checksum-verified Dexter binary from GitHub releases when one is not already installed
 - Check extension-managed binaries for updates daily without modifying system installations
 - Prefer an explicitly configured binary, then a Dexter installation on `PATH`, before using the extension-managed binary
+- Respect global and combined-language `editor.formatOnSave` settings
 
 ## v0.2.0
 

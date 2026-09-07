@@ -125,11 +125,6 @@
         }
       }
     ],
-    "configurationDefaults": {
-      "[elixir]": {
-        "editor.formatOnSave": false
-      }
-    },
     "configuration": {
       "title": "Dexter",
       "properties": {

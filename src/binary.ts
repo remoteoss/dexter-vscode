@@ -45,6 +45,12 @@ export async function resolveDexterBinary(
 	autoInstall: boolean,
 	output: vscode.OutputChannel,
 ): Promise<ResolvedBinary> {
+	if (process.platform === 'win32') {
+		throw new BinaryInstallError(
+			'Dexter does not support Windows. Use the extension from a WSL workspace instead.',
+		);
+	}
+
 	if (configuredBinary !== 'dexter') {
 		output.appendLine(`Using configured Dexter binary: ${configuredBinary}`);
 		return { path: configuredBinary, source: 'configured' };
@@ -252,19 +258,14 @@ async function findOnPath(command: string): Promise<string | undefined> {
 		return undefined;
 	}
 
-	const candidates = process.platform === 'win32'
-		? [`${command}.exe`, `${command}.cmd`, `${command}.bat`, command]
-		: [command];
 	for (const directoryValue of pathValue.split(path.delimiter)) {
 		const directory = directoryValue.replace(/^"|"$/g, '');
 		if (!directory) {
 			continue;
 		}
-		for (const candidate of candidates) {
-			const candidatePath = path.join(directory, candidate);
-			if (await isExecutableFile(candidatePath)) {
-				return candidatePath;
-			}
+		const candidatePath = path.join(directory, command);
+		if (await isExecutableFile(candidatePath)) {
+			return candidatePath;
 		}
 	}
 	return undefined;
@@ -276,10 +277,7 @@ async function isExecutableFile(candidatePath: string): Promise<boolean> {
 		if (!stat.isFile()) {
 			return false;
 		}
-		await fs.access(
-			candidatePath,
-			process.platform === 'win32' ? constants.F_OK : constants.X_OK,
-		);
+		await fs.access(candidatePath, constants.X_OK);
 		return true;
 	} catch {
 		return false;
@@ -287,7 +285,7 @@ async function isExecutableFile(candidatePath: string): Promise<boolean> {
 }
 
 function executableName(): string {
-	return process.platform === 'win32' ? 'dexter.exe' : 'dexter';
+	return 'dexter';
 }
 
 function request(url: string, redirectsRemaining = 5): Promise<Buffer> {
