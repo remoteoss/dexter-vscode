@@ -24,7 +24,8 @@ cannot find one, it downloads a checksum-verified binary into VS Code's extensio
 modify your system installation. Extension-managed binaries can also be updated automatically.
 
 If automatic installation is unavailable, follow Dexter's [manual installation instructions](https://github.com/remoteoss/dexter#quick-start).
-Native Windows is not supported; use the extension from a WSL workspace instead.
+Native Windows support is best effort and automatic installation is unavailable. Configure a compatible
+Dexter executable with `dexter.binary`, or use the extension from a WSL workspace.
 
 Dexter stores its project index in `.dexter/`. The directory manages its own `.gitignore`, so no project
 `.gitignore` entry is needed.
