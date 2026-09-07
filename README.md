@@ -15,9 +15,14 @@ See the [Dexter repo](https://github.com/remoteoss/dexter) for the full feature 
 
 ## Quick start
 
-1. [Install Dexter](https://github.com/remoteoss/dexter#installation)
-2. Install this extension from the VS Code or Cursor marketplace
-3. Open any Elixir file — the index builds automatically on first startup
+1. Install this extension from the VS Code or Cursor marketplace
+2. Open any Elixir file — Dexter is downloaded automatically and the index builds on first startup
+
+If Dexter is already installed on your `PATH`, the extension uses that copy instead. You can also set
+`dexter.binary` to use a specific binary. Automatically downloaded binaries live only in VS Code's
+extension storage and do not modify your system installation.
+
+If automatic installation is unavailable, follow Dexter's [manual installation instructions](https://github.com/remoteoss/dexter#quick-start).
 
 Add `.dexter.db` to your `.gitignore`:
 
@@ -30,6 +35,8 @@ echo ".dexter.db*" >> .gitignore
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `dexter.binary` | `"dexter"` | Path to the dexter binary |
+| `dexter.autoInstall` | `true` | Download Dexter into extension storage when it is not installed |
+| `dexter.autoUpdate` | `true` | Keep the extension-managed Dexter binary up to date |
 | `dexter.followDelegates` | `true` | Follow `defdelegate` to the target function definition |
 | `dexter.stdlibPath` | `""` | Path to the Elixir stdlib `lib/` directory. Auto-detected if not set |
 | `dexter.debug` | `false` | Enable verbose LSP logging (view with **Output → Dexter**) |

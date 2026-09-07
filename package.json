@@ -12,7 +12,7 @@
   "engines": {
     "vscode": "^1.75.0"
   },
-	"icon": "dexter-logo.png",
+  "icon": "dexter-logo.png",
   "categories": [
     "Programming Languages"
   ],
@@ -137,6 +137,16 @@
           "type": "string",
           "default": "dexter",
           "description": "Path to the dexter binary. Defaults to 'dexter' (must be on PATH)."
+        },
+        "dexter.autoInstall": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically download Dexter into extension storage when it is not installed on PATH."
+        },
+        "dexter.autoUpdate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically update the extension-managed Dexter binary. System installations are never modified."
         },
         "dexter.followDelegates": {
           "type": "boolean",
