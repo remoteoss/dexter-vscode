@@ -2,13 +2,18 @@
 
 install: install-cursor
 
-install-deps:
+# Reinstalls only when the lockfile is newer than the tree, so `npm ci` in CI is
+# not followed by a redundant `npm install`.
+node_modules: package-lock.json
 	npm install
+	@touch node_modules
 
-build: install-deps
+install-deps: node_modules
+
+build: node_modules
 	npm run compile
 
-watch: install-deps
+watch: node_modules
 	npm run watch
 
 PKG_VERSION := $(shell node -p "require('./package.json').version")
