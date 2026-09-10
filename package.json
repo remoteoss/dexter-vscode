@@ -138,7 +138,7 @@
         "dexter.binary": {
           "type": "string",
           "default": "dexter",
-          "description": "Path to the dexter binary. Defaults to 'dexter' (must be on PATH)."
+          "description": "Path to the dexter binary, or a command name to find on PATH. Accepts ~ and workspace-relative paths. Defaults to 'dexter', which looks on PATH and otherwise installs a managed binary."
         },
         "dexter.autoInstall": {
           "type": "boolean",

@@ -34,7 +34,7 @@ Dexter stores its project index in `.dexter/`. The directory manages its own `.g
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `dexter.binary` | `"dexter"` | Path to the dexter binary |
+| `dexter.binary` | `"dexter"` | Path to the dexter binary, or a command name to find on `PATH`. Accepts `~` and workspace-relative paths |
 | `dexter.autoInstall` | `true` | Download Dexter into extension storage when it is not installed |
 | `dexter.autoUpdate` | `true` | Keep the extension-managed Dexter binary up to date |
 | `dexter.followDelegates` | `true` | Follow `defdelegate` to the target function definition |
@@ -76,11 +76,15 @@ extension ID is different in each editor:
 }
 ```
 
+Dexter settings are read when the language server starts. After you change one, the
+extension offers to restart the server. You can also restart it yourself from the
+Command Palette.
+
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| **Dexter: Restart Language Server** | Stops and starts the language server. Use it after an update, or if the server stops responding |
+| **Dexter: Restart Language Server** | Restarts the language server and applies the current settings. Use it after an update, or if the server stops responding |
 
 ## Development
 

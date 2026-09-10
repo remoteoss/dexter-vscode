@@ -8,6 +8,8 @@
 - Respect global and combined-language `editor.formatOnSave` settings — the extension no longer forces format on save off for Elixir
 - Best-effort support for a Windows `dexter.binary`; automatic installation stays unavailable there
 - Added the **Dexter: Restart Language Server** command to the Command Palette
+- Changing a Dexter setting now offers a restart, and a restart applies the new settings
+- `dexter.binary` accepts a `~` path or a workspace-relative path, and gives a clear error when the binary is missing or is not executable
 - Added the `dexter.maxTransientDocuments` setting
 
 ## v0.2.1
