@@ -1,4 +1,4 @@
-.PHONY: install build watch package package-openvsx install-vscode install-cursor install publish publish-vscode publish-openvsx release clean
+.PHONY: install build watch test package package-openvsx install-vscode install-cursor install publish publish-vscode publish-openvsx release clean
 
 install: install-cursor
 
@@ -15,6 +15,9 @@ build: node_modules
 
 watch: node_modules
 	npm run watch
+
+test: node_modules
+	npm test
 
 PKG_VERSION := $(shell node -p "require('./package.json').version")
 

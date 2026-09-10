@@ -125,9 +125,7 @@ export async function updateManagedDexter(
 			execFileAsync(binary.path, ['version']),
 			fetchLatestRelease(),
 		]);
-		const installedVersion = stdout.trim().replace(/^v/, '');
-		const latestVersion = release.tag_name.replace(/^v/, '');
-		if (installedVersion === latestVersion) {
+		if (normalizeVersion(stdout) === normalizeVersion(release.tag_name)) {
 			output.appendLine(`Extension-managed Dexter ${release.tag_name} is up to date.`);
 			return;
 		}
@@ -146,6 +144,10 @@ export async function updateManagedDexter(
 			`Could not check for a Dexter update: ${error instanceof Error ? error.message : String(error)}`,
 		);
 	}
+}
+
+export function normalizeVersion(version: string): string {
+	return version.trim().replace(/^v/, '');
 }
 
 async function installLatestRelease(
@@ -228,19 +230,22 @@ async function fetchLatestRelease(): Promise<Release> {
 	return release as Release;
 }
 
-function platformRelease(): PlatformRelease | undefined {
+export function platformRelease(
+	platform: string = process.platform,
+	arch: string = process.arch,
+): PlatformRelease | undefined {
 	const names: Record<string, string> = {
 		'darwin-arm64': 'dexter_Darwin_arm64',
 		'linux-arm64': 'dexter_Linux_arm64',
 		'linux-x64': 'dexter_Linux_x86_64',
 	};
-	const archiveDirectory = names[`${process.platform}-${process.arch}`];
+	const archiveDirectory = names[`${platform}-${arch}`];
 	return archiveDirectory
 		? { archiveName: `${archiveDirectory}.tar.gz`, archiveDirectory }
 		: undefined;
 }
 
-function verifyChecksum(contents: Buffer, checksums: string, archiveName: string): void {
+export function verifyChecksum(contents: Buffer, checksums: string, archiveName: string): void {
 	const expected = checksums
 		.split(/\r?\n/)
 		.map((line) => line.trim().split(/\s+/))

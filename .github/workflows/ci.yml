@@ -20,6 +20,8 @@ jobs:
 
       - run: npm run compile
 
+      - run: npm test
+
       # Catches a malformed package.json or a missing contributed file before a tag.
       - name: Verify the extension packages
         run: npx @vscode/vsce package --out dexter-lsp-ci.vsix

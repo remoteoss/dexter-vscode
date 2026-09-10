@@ -92,7 +92,12 @@ Command Palette.
 git clone https://github.com/remoteoss/dexter-vscode.git
 cd dexter-vscode
 make install   # installs to Cursor by default, or: make install-vscode
+make test      # runs the unit tests
 ```
+
+The tests cover binary resolution, checksum verification, and the release asset
+mapping. They stub the `vscode` module, so they run under plain Node and need no
+editor. GitHub Actions runs them on every pull request.
 
 ### Releasing
 

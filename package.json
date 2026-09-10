@@ -9,18 +9,27 @@
     "type": "git",
     "url": "https://github.com/remoteoss/dexter-vscode.git"
   },
+  "homepage": "https://github.com/remoteoss/dexter",
+  "bugs": {
+    "url": "https://github.com/remoteoss/dexter-vscode/issues"
+  },
   "engines": {
     "vscode": "^1.75.0"
   },
   "icon": "dexter-logo.png",
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Formatters"
   ],
   "keywords": [
     "elixir",
     "lsp",
     "go-to-definition",
-    "syntax-highlighting"
+    "syntax-highlighting",
+    "phoenix",
+    "heex",
+    "livebook",
+    "formatter"
   ],
   "activationEvents": [
     "onLanguage:elixir",
@@ -177,7 +186,8 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test test/*.test.js"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
