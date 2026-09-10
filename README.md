@@ -92,34 +92,33 @@ make install   # installs to Cursor by default, or: make install-vscode
 
 ### Releasing
 
-Releases are published by hand. There is no CI pipeline for this repository yet — the
-`.gitlab-ci.yml` file is left over from GitLab and does not run on GitHub.
-
-The two marketplaces use different publisher namespaces, so each one needs its own
-package:
+GitHub Actions builds and packages the extension, but the two marketplaces are
+published by hand. The marketplaces use different publisher namespaces, so each one
+needs its own package:
 
 | Editor | Marketplace | Extension ID |
 |--------|-------------|--------------|
 | VS Code | Visual Studio Marketplace | `remoteoss.dexter-lsp` |
 | Cursor | Open VSX | `remote-com-oss.dexter-lsp` |
 
-`make package-openvsx` sets the Open VSX publisher, builds the package, then restores
-`package.json`.
-
 1. Create a release branch. Bump the version in `package.json` and add a `CHANGELOG.md`
-   entry.
+   entry with a `## v<version>` heading.
 2. Merge the branch into `main`, then check out `main`.
-3. Publish to both marketplaces:
+3. Tag and push. The tag must match the version in `package.json`:
+   ```sh
+   make release VERSION=0.3.0
+   ```
+   The `Release` workflow then builds both packages and creates the GitHub release,
+   using that version's `CHANGELOG.md` section as the release notes. It fails if the
+   tag and `package.json` disagree, or if the changelog section is missing.
+4. Publish to both marketplaces:
    ```sh
    export VSCE_PAT=...   # Visual Studio Marketplace token
    export OVSX_PAT=...   # Open VSX token
    make publish
    ```
    Or publish to one at a time with `make publish-vscode` and `make publish-openvsx`.
-4. Tag and push. The tag must match the version in `package.json`:
-   ```sh
-   make release VERSION=0.3.0
-   ```
-5. Create a GitHub release for the tag and attach `dexter-lsp-<version>.vsix`.
 
 To build the packages without publishing, run `make package` and `make package-openvsx`.
+`make package-openvsx` sets the Open VSX publisher, builds the package, then restores
+`package.json`.
