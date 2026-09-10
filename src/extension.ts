@@ -16,6 +16,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	const followDelegates = config.get<boolean>('followDelegates', true);
 	const debug = config.get<boolean>('debug', false);
 	const stdlibPath = config.get<string>('stdlibPath', '');
+	const maxTransientDocuments = config.get<number>('maxTransientDocuments', 50);
 	const output = vscode.window.createOutputChannel('Dexter');
 	context.subscriptions.push(output);
 
@@ -52,11 +53,27 @@ export async function activate(context: vscode.ExtensionContext) {
 		initializationOptions: {
 			followDelegates,
 			debug,
+			maxTransientDocuments,
 			...(stdlibPath ? { stdlibPath } : {}),
 		},
 	};
 
 	client = new LanguageClient('dexter', 'Dexter', serverOptions, clientOptions);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('dexter.restart', async () => {
+			try {
+				await client?.stop();
+				await client?.start();
+			} catch (error) {
+				output.appendLine(error instanceof Error ? error.stack ?? error.message : String(error));
+				vscode.window.showErrorMessage(
+					`Dexter could not restart: ${error instanceof Error ? error.message : String(error)}`,
+				);
+			}
+		})
+	);
+
 	try {
 		await client.start();
 	} catch (error) {
@@ -64,13 +81,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		await showInstallError(error);
 		return;
 	}
-
-	context.subscriptions.push(
-		vscode.commands.registerCommand('dexter.restart', async () => {
-			await client?.stop();
-			client?.start();
-		})
-	);
 
 	void updateManagedDexter(context, resolvedBinary, autoUpdate, output);
 }

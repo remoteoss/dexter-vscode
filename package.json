@@ -2,7 +2,7 @@
   "name": "dexter-lsp",
   "displayName": "Dexter",
   "description": "A lightning fast Elixir LSP server.",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publisher": "remoteoss",
   "license": "MIT",
   "repository": {
@@ -30,6 +30,13 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "dexter.restart",
+        "title": "Restart Language Server",
+        "category": "Dexter"
+      }
+    ],
     "languages": [
       {
         "id": "elixir",
@@ -153,6 +160,12 @@
           "default": false,
           "description": "Enable debug logging to stderr."
         },
+        "dexter.maxTransientDocuments": {
+          "type": "integer",
+          "default": 50,
+          "minimum": 0,
+          "description": "Cap on lazily-loaded buffers the server keeps in memory for files the editor never opened. Set to 0 to disable transient caching."
+        },
         "dexter.stdlibPath": {
           "type": "string",
           "default": "",
@@ -173,6 +186,7 @@
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.75.0",
     "@vscode/vsce": "^3.7.1",
+    "ovsx": "^1.1.1",
     "typescript": "^5.0.0"
   }
 }

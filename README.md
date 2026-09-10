@@ -8,7 +8,7 @@
 - Autocompletion with snippet support across aliases, imports, and `use` injections
 - Hover documentation for `@doc`, `@moduledoc`, `@typedoc`, and `@spec`
 - Near-instant format on save, including support for any formatter plugins your project has configured, like Styler
-- Syntax highlighting for Elixir, EEx, HEEx, and LiveBook
+- Syntax highlighting for Elixir, EEx, HEEx, and Livebook
 - Monorepo-aware with automatic reindexing on git branch switches
 
 See the [Dexter repo](https://github.com/remoteoss/dexter) for the full feature list.
@@ -38,10 +38,14 @@ Dexter stores its project index in `.dexter/`. The directory manages its own `.g
 | `dexter.autoInstall` | `true` | Download Dexter into extension storage when it is not installed |
 | `dexter.autoUpdate` | `true` | Keep the extension-managed Dexter binary up to date |
 | `dexter.followDelegates` | `true` | Follow `defdelegate` to the target function definition |
+| `dexter.maxTransientDocuments` | `50` | Buffers the server keeps for files the editor never opened. `0` disables caching |
 | `dexter.stdlibPath` | `""` | Path to the Elixir stdlib `lib/` directory. Auto-detected if not set |
 | `dexter.debug` | `false` | Enable verbose LSP logging (view with **Output → Dexter**) |
 
-To enable format on save globally:
+### Format on save
+
+The extension does not change your format-on-save settings. To turn format on save on
+globally:
 
 ```json
 {
@@ -49,13 +53,34 @@ To enable format on save globally:
 }
 ```
 
-Or enable it only for Dexter-supported languages:
+Or turn it on only for the languages Dexter supports:
 
 ```json
 {
   "[elixir][phoenix-heex]": { "editor.formatOnSave": true }
 }
 ```
+
+If another Elixir extension is installed, set Dexter as the default formatter. The
+extension ID is different in each editor:
+
+```json
+// VS Code
+{
+  "[elixir]": { "editor.defaultFormatter": "remoteoss.dexter-lsp" }
+}
+
+// Cursor
+{
+  "[elixir]": { "editor.defaultFormatter": "remote-com-oss.dexter-lsp" }
+}
+```
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| **Dexter: Restart Language Server** | Stops and starts the language server. Use it after an update, or if the server stops responding |
 
 ## Development
 
@@ -67,11 +92,34 @@ make install   # installs to Cursor by default, or: make install-vscode
 
 ### Releasing
 
-1. Create a release branch, bump the version in `package.json`, and update `CHANGELOG.md`
-2. Merge the branch into `main`
-3. Tag and push:
-   ```sh
-   make release VERSION=0.2.0
-   ```
+Releases are published by hand. There is no CI pipeline for this repository yet — the
+`.gitlab-ci.yml` file is left over from GitLab and does not run on GitHub.
 
-CI will pick up the tag and publish the extension automatically.
+The two marketplaces use different publisher namespaces, so each one needs its own
+package:
+
+| Editor | Marketplace | Extension ID |
+|--------|-------------|--------------|
+| VS Code | Visual Studio Marketplace | `remoteoss.dexter-lsp` |
+| Cursor | Open VSX | `remote-com-oss.dexter-lsp` |
+
+`make package-openvsx` sets the Open VSX publisher, builds the package, then restores
+`package.json`.
+
+1. Create a release branch. Bump the version in `package.json` and add a `CHANGELOG.md`
+   entry.
+2. Merge the branch into `main`, then check out `main`.
+3. Publish to both marketplaces:
+   ```sh
+   export VSCE_PAT=...   # Visual Studio Marketplace token
+   export OVSX_PAT=...   # Open VSX token
+   make publish
+   ```
+   Or publish to one at a time with `make publish-vscode` and `make publish-openvsx`.
+4. Tag and push. The tag must match the version in `package.json`:
+   ```sh
+   make release VERSION=0.3.0
+   ```
+5. Create a GitHub release for the tag and attach `dexter-lsp-<version>.vsix`.
+
+To build the packages without publishing, run `make package` and `make package-openvsx`.
