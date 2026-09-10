@@ -16,19 +16,19 @@ See the [Dexter repo](https://github.com/remoteoss/dexter) for the full feature 
 ## Quick start
 
 1. Install this extension from the VS Code or Cursor marketplace
-2. Open any Elixir file — Dexter is downloaded automatically and the index builds on first startup
+2. Either set `dexter.binary` to the Dexter binary you want to use, or let the extension set Dexter up for you
+3. Open any Elixir file — the index builds automatically on first startup
 
-If Dexter is already installed on your `PATH`, the extension uses that copy instead. You can also set
-`dexter.binary` to use a specific binary. Automatically downloaded binaries live only in VS Code's
-extension storage and do not modify your system installation.
+When `dexter.binary` is left at its default, the extension first looks for Dexter on your `PATH`. If it
+cannot find one, it downloads a checksum-verified binary into VS Code's extension storage. This does not
+modify your system installation. Extension-managed binaries can also be updated automatically.
 
 If automatic installation is unavailable, follow Dexter's [manual installation instructions](https://github.com/remoteoss/dexter#quick-start).
+Native Windows support is best effort and automatic installation is unavailable. Configure a compatible
+Dexter executable with `dexter.binary`, or use the extension from a WSL workspace.
 
-Add `.dexter.db` to your `.gitignore`:
-
-```sh
-echo ".dexter.db*" >> .gitignore
-```
+Dexter stores its project index in `.dexter/`. The directory manages its own `.gitignore`, so no project
+`.gitignore` entry is needed.
 
 ## Configuration
 
@@ -41,12 +41,19 @@ echo ".dexter.db*" >> .gitignore
 | `dexter.stdlibPath` | `""` | Path to the Elixir stdlib `lib/` directory. Auto-detected if not set |
 | `dexter.debug` | `false` | Enable verbose LSP logging (view with **Output → Dexter**) |
 
-To enable format on save:
+To enable format on save globally:
 
 ```json
 {
-  "[elixir]": { "editor.formatOnSave": true },
-  "[phoenix-heex]": { "editor.formatOnSave": true }
+  "editor.formatOnSave": true
+}
+```
+
+Or enable it only for Dexter-supported languages:
+
+```json
+{
+  "[elixir][phoenix-heex]": { "editor.formatOnSave": true }
 }
 ```
 

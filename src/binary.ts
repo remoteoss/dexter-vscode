@@ -252,9 +252,7 @@ async function findOnPath(command: string): Promise<string | undefined> {
 		return undefined;
 	}
 
-	const candidates = process.platform === 'win32'
-		? [`${command}.exe`, `${command}.cmd`, `${command}.bat`, command]
-		: [command];
+	const candidates = process.platform === 'win32' ? [`${command}.exe`, command] : [command];
 	for (const directoryValue of pathValue.split(path.delimiter)) {
 		const directory = directoryValue.replace(/^"|"$/g, '');
 		if (!directory) {
