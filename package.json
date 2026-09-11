@@ -2,25 +2,34 @@
   "name": "dexter-lsp",
   "displayName": "Dexter",
   "description": "A lightning fast Elixir LSP server.",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publisher": "remoteoss",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/remoteoss/dexter-vscode.git"
   },
+  "homepage": "https://github.com/remoteoss/dexter",
+  "bugs": {
+    "url": "https://github.com/remoteoss/dexter-vscode/issues"
+  },
   "engines": {
     "vscode": "^1.75.0"
   },
   "icon": "dexter-logo.png",
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Formatters"
   ],
   "keywords": [
     "elixir",
     "lsp",
     "go-to-definition",
-    "syntax-highlighting"
+    "syntax-highlighting",
+    "phoenix",
+    "heex",
+    "livebook",
+    "formatter"
   ],
   "activationEvents": [
     "onLanguage:elixir",
@@ -30,6 +39,13 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "dexter.restart",
+        "title": "Restart Language Server",
+        "category": "Dexter"
+      }
+    ],
     "languages": [
       {
         "id": "elixir",
@@ -131,7 +147,7 @@
         "dexter.binary": {
           "type": "string",
           "default": "dexter",
-          "description": "Path to the dexter binary. Defaults to 'dexter' (must be on PATH)."
+          "description": "Path to the dexter binary, or a command name to find on PATH. Accepts ~ and workspace-relative paths. Defaults to 'dexter', which looks on PATH and otherwise installs a managed binary."
         },
         "dexter.autoInstall": {
           "type": "boolean",
@@ -153,6 +169,12 @@
           "default": false,
           "description": "Enable debug logging to stderr."
         },
+        "dexter.maxTransientDocuments": {
+          "type": "integer",
+          "default": 50,
+          "minimum": 0,
+          "description": "Cap on lazily-loaded buffers the server keeps in memory for files the editor never opened. Set to 0 to disable transient caching."
+        },
         "dexter.stdlibPath": {
           "type": "string",
           "default": "",
@@ -164,7 +186,8 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test test/*.test.js"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
@@ -173,6 +196,7 @@
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.75.0",
     "@vscode/vsce": "^3.7.1",
+    "ovsx": "^1.1.1",
     "typescript": "^5.0.0"
   }
 }
